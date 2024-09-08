@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A Letter To God Flashcards by LessonThrills</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f7fb;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    h1 {
+      text-align: center;
+      margin-top: 20px;
+      color: #333;
+      font-size: 24px;
+    }
+
+    .flashcard-container {
+      width: 90%;
+      max-width: 600px;
+      perspective: 1000px;
+      margin: 20px 0;
+    }
+
+    .flashcard {
+      width: 100%;
+      height: 250px;
+      background: linear-gradient(to right, #6a11cb, #2575fc);
+      border-radius: 15px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      font-size: 1.2rem;
+      position: relative;
+      cursor: pointer;
+      transition: transform 0.6s;
+      transform-style: preserve-3d;
+    }
+
+    .flashcard.flipped {
+      transform: rotateY(180deg);
+    }
+
+    .flashcard-front, .flashcard-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    .flashcard-back {
+      background: linear-gradient(to right, #ff758c, #ff7eb3);
+      transform: rotateY(180deg);
+    }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 20px;
+      width: 250px;
+    }
+
+    .nav-buttons img {
+      width: 32px;
+      height: 32px;
+      cursor: pointer;
+    }
+
+    .disabled {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+
+    .footer {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .footer a {
+      text-decoration: none;
+      color: #ff7eb3;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .footer a img {
+      margin-left: 10px;
+      width: 24px;
+      height: 24px;
+    }
+
+    @media (max-width: 768px) {
+      .flashcard {
+        height: 220px;
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>A Letter To God Flashcards by LessonThrills</h1>
+
+  <div class="flashcard-container">
+    <div id="flashcard" class="flashcard" onclick="flipFlashcard()">
+      <div class="flashcard-front">
+        Flashcard 1: Who is the main character of "A Letter to God"?
+      </div>
+      <div class="flashcard-back">
+        Answer: Lencho, a farmer.
+      </div>
+    </div>
+  </div>
+
+  <div class="nav-buttons">
+    <img id="first-btn" src="https://img.icons8.com/material-outlined/24/000000/home.png" onclick="goToFirstFlashcard()" />
+    <img id="prev-btn" src="https://img.icons8.com/material-outlined/24/000000/back.png" onclick="prevFlashcard()" class="disabled" />
+    <img id="sound-btn" src="https://img.icons8.com/material-outlined/24/000000/mute.png" onclick="toggleSound()" />
+    <img id="next-btn" src="https://img.icons8.com/material-outlined/24/000000/forward.png" onclick="nextFlashcard()" />
+  </div>
+
+  <div class="footer">
+    <a href="https://youtube.com/@lessonthrills?si=ZO-iYNu_oudw4kht" target="_blank">
+      Click this YouTube icon to visit our YouTube channel
+      <img src="https://img.icons8.com/color/48/000000/youtube-play.png" />
+    </a>
+  </div>
+
+  <script>
+    const flashcards = [
+      { question: "Flashcard 1: Who is the main character of 'A Letter to God'?", answer: "Answer: Lencho, a farmer." },
+      { question: "Flashcard 2: What natural disaster ruins Lencho's crops?", answer: "Answer: A hailstorm." },
+      { question: "Flashcard 3: Where was Lencho’s house located?", answer: "Answer: On the crest of a low hill." },
+      { question: "Flashcard 4: What did Lencho predict would happen that afternoon?", answer: "Answer: He predicted it would rain." },
+      { question: "Flashcard 5: How did Lencho describe the rain?", answer: "Answer: As 'new coins', with large drops being ten-cent pieces and small drops being fives." },
+      { question: "Flashcard 6: What change occurred in the weather after the rain started?", answer: "Answer: A strong wind began to blow, and large hailstones fell." },
+      { question: "Flashcard 7: What was the impact of the hailstorm on Lencho’s field?", answer: "Answer: It destroyed all his crops." },
+      { question: "Flashcard 8: What emotion did Lencho experience after the hailstorm?", answer: "Answer: Sadness and despair." },
+      { question: "Flashcard 9: What does Lencho say about the year’s corn yield after the hailstorm?", answer: "Answer: 'This year we will have no corn.'"},
+      { question: "Flashcard 10: What does Lencho’s family believe is their only hope after the disaster?", answer: "Answer: Help from God." },
+      { question: "Flashcard 11: What does Lencho decide to do after the hailstorm?", answer: "Answer: Write a letter to God." },
+      { question: "Flashcard 12: How much money does Lencho ask for in his letter to God?", answer: "Answer: 100 pesos." },
+      { question: "Flashcard 13: Why does Lencho need the money?", answer: "Answer: To sow his field again and live until the next crop." },
+      { question: "Flashcard 14: Where does Lencho take his letter?", answer: "Answer: To the post office." },
+      { question: "Flashcard 15: What was the reaction of the post office employees when they saw Lencho’s letter?", answer: "Answer: They laughed at first." },
+      { question: "Flashcard 16: How does the postmaster react after reading Lencho’s letter?", answer: "Answer: He is amazed at Lencho’s faith and decides to help." },
+      { question: "Flashcard 17: What does the postmaster do to help Lencho?", answer: "Answer: He collects money from his employees and friends to send to Lencho." },
+      { question: "Flashcard 18: How much money was the postmaster able to gather?", answer: "Answer: A little more than half of the 100 pesos Lencho requested." },
+      { question: "Flashcard 19: How did the postmaster sign the letter that was sent to Lencho?", answer: "Answer: He signed it 'God'." },
+      { question: "Flashcard 20: How did Lencho react when he received the letter with money?", answer: "Answer: He was not surprised but became angry when he counted the money." },
+      { question: "Flashcard 21: How much money did Lencho receive?", answer: "Answer: 70 pesos." },
+      { question: "Flashcard 22: Why was Lencho angry after receiving the money?", answer: "Answer: He thought the rest of the money (30 pesos) was stolen by post office employees." },
+      { question: "Flashcard 23: What did Lencho do after receiving the money?", answer: "Answer: He wrote another letter to God." },
+      { question: "Flashcard 24: What did Lencho accuse the post office employees of?", answer: "Answer: Being crooks who stole the rest of the money." },
+      { question: "Flashcard 25: What was the single word Lencho used to sign his second letter to God?", answer: "Answer: He simply addressed the letter to 'God'." },
+      { question: "Flashcard 26: How does Lencho describe the hailstones?", answer: "Answer: As frozen pearls." },
+      { question: "Flashcard 27: What does Lencho believe about God’s vision?", answer: "Answer: He believes God sees everything, even what is deep in one’s conscience." },
+      { question: "Flashcard 28: Why does Lencho not suspect the postmaster or his employees of helping him?", answer: "Answer: He has such strong faith in God that he doesn’t doubt Him." },
+      { question: "Flashcard 29: What metaphor does Lencho use to describe himself?", answer: "Answer: He calls himself 'an ox of a man'." },
+      { question: "Flashcard 30: What does Lencho’s wife say to console him after the storm?", answer: "Answer: 'Remember, no one dies of hunger.' "},
+      { question: "Flashcard 31: How does Lencho address God in his letters?", answer: "Answer: Simply as 'God'." },
+      { question: "Flashcard 32: What lesson does the postmaster learn from Lencho’s faith?", answer: "Answer: He wishes he had the same unwavering faith." },
+      { question: "Flashcard 33: What does the expression 'an ox of a man' signify about Lencho?", answer: "Answer: It shows that Lencho is strong and hardworking like an ox." },
+      { question: "Flashcard 34: What kind of faith does Lencho exhibit throughout the story?", answer: "Answer: Unquestioning faith in God." },
+      { question: "Flashcard 35: What was Lencho’s primary emotion when the storm destroyed his crops?", answer: "Answer: Despair, knowing they would have no food." },
+      { question: "Flashcard 36: How does the postmaster feel after sending the money to Lencho?", answer: "Answer: Content and satisfied, having done a good deed." },
+      { question: "Flashcard 37: What irony exists in the story?", answer: "Answer: Lencho thinks the post office employees stole his money, while they were the ones who collected it for him." },
+      { question: "Flashcard 38: What literary device is used when Lencho calls the hailstones 'frozen pearls'?", answer: "Answer: Metaphor." },
+      { question: "Flashcard 39: What phrase does Lencho use to describe the hailstorm’s impact compared to locusts?", answer: "Answer: 'A plague of locusts would have left more than this.' "},
+      { question: "Flashcard 40: What theme does the story 'A Letter to God' explore?", answer: "Answer: Faith and trust in a higher power." },
+      { question: "Flashcard 41: How does Lencho view the role of the post office in delivering his second letter?", answer: "Answer: He views them as crooks and distrusts them." },
+      { question: "Flashcard 42: How does Lencho react to the approaching storm initially?", answer: "Answer: He welcomes the rain, thinking it will bring prosperity." },
+      { question: "Flashcard 43: How do the post office employees feel about Lencho’s faith?", answer: "Answer: They admire it but also find it amusing." },
+      { question: "Flashcard 44: What does Lencho rely on after his crops are destroyed?", answer: "Answer: His faith in God to provide." },
+      { question: "Flashcard 45: Why is the story titled 'A Letter to God'?", answer: "Answer: It refers to Lencho’s act of writing directly to God for help." },
+      { question: "Flashcard 46: What does the letter Lencho writes reflect about his character?", answer: "Answer: It reflects his deep faith and simplicity." },
+      { question: "Flashcard 47: What is Lencho's attitude toward the natural world before the storm?", answer: "Answer: He is optimistic and hopeful." },
+      { question: "Flashcard 48: What can we infer about Lencho’s literacy?", answer: "Answer: Though a hardworking farmer, Lencho knows how to write." },
+      { question: "Flashcard 49: How do Lencho’s expectations differ from the reality of receiving the money?", answer: "Answer: He expects 100 pesos but only receives 70, leading to his anger." },
+      { question: "Flashcard 50: What does Lencho’s second letter reveal about his trust?", answer: "Answer: It reveals he trusts God completely but not human institutions like the post office." }
+    ];
+
+    let currentFlashcard = 0;
+    let soundEnabled = false;
+    let speechSynthesis = window.speechSynthesis;
+
+    function flipFlashcard() {
+      const flashcard = document.getElementById('flashcard');
+      flashcard.classList.toggle('flipped');
+    }
+
+    function prevFlashcard() {
+      if (currentFlashcard > 0) {
+        currentFlashcard--;
+        updateFlashcard();
+      }
+    }
+
+    function nextFlashcard() {
+      if (currentFlashcard < flashcards.length - 1) {
+        currentFlashcard++;
+        updateFlashcard();
+      }
+    }
+
+    function goToFirstFlashcard() {
+      currentFlashcard = 0;
+      updateFlashcard();
+    }
+
+    function updateFlashcard() {
+      const flashcard = document.getElementById('flashcard');
+      const front = flashcard.querySelector('.flashcard-front');
+      const back = flashcard.querySelector('.flashcard-back');
+
+      flashcard.classList.remove('flipped');
+      front.textContent = flashcards[currentFlashcard].question;
+      back.textContent = flashcards[currentFlashcard].answer;
+
+      updateNavButtons();
+      stopSound();
+    }
+
+    function updateNavButtons() {
+      document.getElementById('prev-btn').classList.toggle('disabled', currentFlashcard === 0);
+      document.getElementById('next-btn').classList.toggle('disabled', currentFlashcard === flashcards.length - 1);
+    }
+
+    function toggleSound() {
+      const soundBtn = document.getElementById('sound-btn');
+      soundEnabled = !soundEnabled;
+      soundBtn.src = soundEnabled ? 'https://img.icons8.com/material-outlined/24/000000/speaker.png' : 'https://img.icons8.com/material-outlined/24/000000/mute.png';
+      if (soundEnabled) {
+        playFlashcardSound();
+      } else {
+        stopSound();
+      }
+    }
+
+    function playFlashcardSound() {
+      const flashcard = flashcards[currentFlashcard];
+      const utterance = new SpeechSynthesisUtterance(flashcard.question);
+      utterance.rate = 0.85;
+
+      utterance.onend = function () {
+        if (document.getElementById('flashcard').classList.contains('flipped')) {
+          const answerUtterance = new SpeechSynthesisUtterance(flashcard.answer);
+          answerUtterance.rate = 0.85;
+          speechSynthesis.speak(answerUtterance);
+        } else {
+          flipFlashcard();
+          const answerUtterance = new SpeechSynthesisUtterance(flashcard.answer);
+          answerUtterance.rate = 0.85;
+          speechSynthesis.speak(answerUtterance);
+        }
+      };
+
+      speechSynthesis.speak(utterance);
+    }
+
+    function stopSound() {
+      speechSynthesis.cancel();
+      soundEnabled = false;
+      document.getElementById('sound-btn').src = 'https://img.icons8.com/material-outlined/24/000000/mute.png';
+    }
+
+    // Initialize the first flashcard
+    updateFlashcard();
+  </script>
+
+</body>
+</html>
